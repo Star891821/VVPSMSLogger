@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34221.43
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VVPSMSLogger", "VVPSMSLogger\VVPSMSLogger.csproj", "{07FE9E67-8969-4E48-8FCC-AD0BDB4AC961}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{07FE9E67-8969-4E48-8FCC-AD0BDB4AC961}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07FE9E67-8969-4E48-8FCC-AD0BDB4AC961}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07FE9E67-8969-4E48-8FCC-AD0BDB4AC961}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07FE9E67-8969-4E48-8FCC-AD0BDB4AC961}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A400BF8A-F1EC-4C61-9E1D-A71B9DAA6D48}
+	EndGlobalSection
+EndGlobal
