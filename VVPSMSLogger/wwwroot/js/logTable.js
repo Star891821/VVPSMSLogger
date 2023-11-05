@@ -5,8 +5,9 @@
         "filter": true,
         bSortable: true,
         bRetrieve: true,
+        crossDomain: true,
         "ajax": {
-            "url": "https://localhost:7188/api/Logger/LoadData",
+            "url": "https://projects.sustainedgeconsulting.com/VVPSMS/V0/VVPSMSAPI/api/Logger/LoadData",
             "type": "GET",
             "datatype": "json"
         },
