@@ -21,11 +21,11 @@
     });
 </script> *@
 <link href="~/lib/datatables/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
-<div class="container">
+<div class="container-fluid">
      
 
     
-    <div style="width:90%; margin:0 auto;">
+    <div style="width:100%; margin:0 auto;">
         <!-- #Add custom filters in the server-side dataTable -->
         <div class="row well input-daterange">
             
@@ -45,7 +45,7 @@
                 <select class="form-control" name="level" id="level" style="height: 40px;">
                     <option value="">- Please select -</option>
                     <option value="Info">Info</option>
-                    <option value="debug">Debug</option>
+                    <option value="Debug">Debug</option>
                     <option value="Error">Error</option>
                 </select>
             </div>
@@ -85,6 +85,7 @@
     <link href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" rel="stylesheet" />
 
     <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.13.7/dataRender/ellipsis.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
     <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
     <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
@@ -108,5 +109,9 @@
 
     .width-200 {
         width: 200px;
+    }
+
+    .width-80 {
+        width: 80px;
     }
 </style>

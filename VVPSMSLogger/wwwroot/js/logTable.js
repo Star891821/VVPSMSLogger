@@ -1,6 +1,6 @@
 ﻿var dataTable
 $(document).ready(function () {
-    
+
     debugger
     var fromDate;
     var toDate;
@@ -29,7 +29,7 @@ $(document).ready(function () {
     $('#reset').click(function () {
         var $dates = $('#fromDate, #toDate').datepicker();
         $dates.datepicker('setDate', null);
-        $("select#level").val(''); 
+        $("select#level").val('');
         dataTable.draw();
     });
 
@@ -68,7 +68,8 @@ $(document).ready(function () {
                 {
                     extend: 'excelHtml5',
                     title: 'LogExcel',
-                    text: 'Export to excel'
+                    text: 'Export to excel',
+                    exportOptions: { orthogonal: 'export' }
                     //Columns to export
                     //exportOptions: {
                     //     columns: [0, 1, 2, 3,4,5,6]
@@ -83,47 +84,62 @@ $(document).ready(function () {
             searching: true,
             paging: true,
             info: true,
+            "iDisplayLength": 100,
+            lengthMenu: [
+                [100, 200, 300, -1],
+                [100, 200, 300, 'All']
+            ],
+            order: [[1, 'desc']],
             columnDefs: [
+                {
+                    render: $.fn.dataTable.render.ellipsis(50),
+                    targets: 0
+                },
                 {
                     render: function (data, type, full, meta) {
                         var date = new Date(data);
-                        var month = date.getMonth() + 1;
-                        return (month.toString().length > 1 ? month : "0" + month) + "/" + date.getDate() + "/" + date.getFullYear();
+
+                        const padL = (nr, len = 2, chr = `0`) => `${nr}`.padStart(2, chr);
+
+                        return `${padL(date.getMonth() + 1)}/${padL(date.getDate())}/${date.getFullYear()} ${padL(date.getHours())}:${padL(date.getMinutes())}:${padL(date.getSeconds())}`
+                       
                     },
                     targets: 1
                 },
                 {
-                    render: function (data, type, full, meta) {
-                        return "<div class='text-wrap width-200'>" + data + "</div>";
-                    },
+                    render: $.fn.dataTable.render.ellipsis(50),
                     targets: 3
                 },
                 {
-                    render: function (data, type, full, meta) {
-                        return "<div class='text-wrap width-200'>" + data + "</div>";
-                    },
+                    render: $.fn.dataTable.render.ellipsis(50),
                     targets: 4
                 },
                 {
-                    render: function (data, type, full, meta) {
-                        return "<div class='text-wrap width-200'>" + data + "</div>";
-                    },
+                    render: $.fn.dataTable.render.ellipsis(50),
+                    targets: 5
+                },
+                {
+                    render: $.fn.dataTable.render.ellipsis(50),
+                    targets: 6
+                },
+                {
+                    render: $.fn.dataTable.render.ellipsis(50),
                     targets: 7
                 }
             ],
             fixedColumns: true,
             "columns": [
-                { "data": "id", "name": "Id" },
-                { "data": "createdOn", "name": "Created On" },
-                { "data": "level", "name": "Level" },
-                { "data": "message", "name": "Message" },
-                { "data": "stackTrace", "name": "Stack Trace" },
-                { "data": "exception", "name": "Exception" },
-                { "data": "logger", "name": "Logger" },
-                { "data": "url", "name": "Url" }
+                { "data": "id", "name": "Id", width: '30px', style: 'white-space: normal' },
+                { "data": "createdOn", "name": "Created On", width: '80px', style: 'white-space: normal' },
+                { "data": "level", "name": "Level", width: '30px', style: 'white-space: normal' },
+                { "data": "message", "name": "Message", width: '100px', class: 'text-wrap' },
+                { "data": "stackTrace", "name": "Stack Trace", width: '100px', class: 'text-wrap', style: 'word-break: break-word;' },
+                { "data": "exception", "name": "Exception", width: '100px', class: 'text-wrap' },
+                { "data": "logger", "name": "Logger", width: '100px', class: 'text-wrap' },
+                { "data": "url", "name": "Url", width: '100px', class: 'text-wrap' }
 
             ]
         });
     }
-});  
+});
 
