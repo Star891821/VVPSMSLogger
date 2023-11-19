@@ -125,6 +125,16 @@ $(document).ready(function () {
                 {
                     render: $.fn.dataTable.render.ellipsis(50),
                     targets: 7
+                },
+                {
+                    "render": function (data, type, row) {
+                        debugger
+                        if (data == null) { return "" }
+                        else {
+                            return data;
+                        }
+                    },
+                    targets: 8
                 }
             ],
             fixedColumns: true,
@@ -132,11 +142,12 @@ $(document).ready(function () {
                 { "data": "id", "name": "Id", width: '30px', style: 'white-space: normal' },
                 { "data": "createdOn", "name": "Created On", width: '80px', style: 'white-space: normal' },
                 { "data": "level", "name": "Level", width: '30px', style: 'white-space: normal' },
-                { "data": "message", "name": "Message", width: '100px', class: 'text-wrap' },
-                { "data": "stackTrace", "name": "Stack Trace", width: '100px', class: 'text-wrap', style: 'word-break: break-word;' },
-                { "data": "exception", "name": "Exception", width: '100px', class: 'text-wrap' },
-                { "data": "logger", "name": "Logger", width: '100px', class: 'text-wrap' },
-                { "data": "url", "name": "Url", width: '100px', class: 'text-wrap' }
+                { "data": "message", "name": "Message", width: '80px', class: 'text-wrap' },
+                { "data": "stackTrace", "name": "Stack Trace", width: '80px', class: 'text-wrap', style: 'word-break: break-word;' },
+                { "data": "exception", "name": "Exception", width: '80px', class: 'text-wrap', style: 'word-break: break-word;' },
+                { "data": "logger", "name": "Logger", width: '60px', class: 'text-wrap', style: 'word-break: break-word;' },
+                { "data": "url", "name": "Url", width: '80px', class: 'text-wrap', style: 'word-break: break-word;' },
+                { "data": "formId", "name": "Form Id", width: '80px', class: 'text-wrap', style: 'word-break: break-word;' }
 
             ]
         });
