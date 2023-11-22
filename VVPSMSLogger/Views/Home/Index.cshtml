@@ -75,7 +75,52 @@
                 </tr>
             </thead>
         </table>
+
+        <!-- Modal -->
+        <div class="modal" id="logDetailsModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog custom-modal" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Log Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table id="modalTable" class="table table-bordered" width="100%">
+                            <thead>
+                                <tr>
+                                    <th width="5%" style="width: 5%">ID</th>
+                                    <th width="25%">Message</th>
+                                    <th width="60%">Stack Trace</th>
+                                    <th width="10%">Url</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td width="5%" style="width: 5%"><span id="id"></span></td>
+                                    <td width="25%"><span id="message"></span></td>
+                                    <td width="60%"><span id="stackTrace"></span></td>
+                                    <td width="10%"><span id="url"></span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
     </div>
+
+    
+
+
+
 </div>
 @section Scripts
 {
@@ -114,5 +159,10 @@
 
     .width-80 {
         width: 80px;
+    }
+    /* Custom class to increase modal width */
+    .custom-modal {
+        max-width: 90%; /* Set the maximum width as needed */
+        margin: 1.75rem auto; /* Adjust margin if required */
     }
 </style>

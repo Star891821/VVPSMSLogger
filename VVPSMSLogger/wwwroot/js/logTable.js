@@ -35,6 +35,38 @@ $(document).ready(function () {
    
     bindDataTable();
 
+    $("#modalTable").DataTable({
+        "searching": false, // Remove the search feature
+        "paging": false, // Remove pagination
+        "lengthChange": false, // Remove the page length option
+        "ordering": false, // Disable sorting for the entire table
+        "info": false, // Remove "Showing x of y entries" message
+        columnDefs: [
+            createShowMoreRenderConfig(1, 50),
+            createShowMoreRenderConfig(2, 50)
+        ],
+        "columns": [
+            { "data": "id", "name": "Id", "width": '5%' }, // Adjust the width as needed
+            { "data": "message", "name": "Message", "width": '25%' }, // Adjust the width as needed
+            { "data": "stackTrace", "name": "Stack Trace", "width": '60%' }, // Adjust the width as needed
+            { "data": "url", "name": "Url", "width": '10%' } // Adjust the width as needed
+        ]
+    });
+
+    // Set column widths using jQuery
+    $('#modalTable').css('width', '100%'); // Adjust the table width if necessary
+
+    $('#modalTable th:eq(0)').css('width', '5%'); // ID column
+    $('#modalTable th:eq(1)').css('width', '25%'); // Message column
+    $('#modalTable th:eq(2)').css('width', '60%'); // Stack Trace column
+    $('#modalTable th:eq(3)').css('width', '10%'); // Url column
+
+    // Adjust td widths (if needed)
+    $('#modalTable td:eq(0)').css('width', '5%'); // ID column
+    $('#modalTable td:eq(1)').css('width', '25%'); // Message column
+    $('#modalTable td:eq(2)').css('width', '60%'); // Stack Trace column
+    $('#modalTable td:eq(3)').css('width', '10%'); // Url column
+
     // Show more/less functionality
     $('#logTable').on('click', '.more-link', function (e) {
         e.preventDefault();
@@ -99,6 +131,76 @@ $(document).ready(function () {
         };
     }
 
+    // Event listener for clicking on the log details hyperlink
+    $('#logTable').on('click', '.log-details', function (e) {
+        e.preventDefault();
+
+        // Extract the ID of the log from data attribute
+        var logId = $(this).data('id');
+
+        // Assuming you have a function to fetch additional details based on logId
+        // Replace 'getLogDetails' with your function for retrieving log details
+        const logDetails = getLogDetails(logId); // Fetch details using an API call or other method
+        console.log('logDetails d:', logDetails);
+        // Using a for loop to iterate through the logDetails array
+        //for (let i = 0; i < logDetails.length; i++) {
+        //    const log = logDetails[i];
+
+        //    // Update the modal content with the fetched details for each log object
+        //    $('#messageId').text(log.id);
+        //    $('#message').text(log.message);
+        //    $('#stackTrace').text(log.stackTrace);
+        //    $('#exception').text(log.exception);
+
+        //    // Add logic here to handle displaying multiple log details (e.g., appending to a container)
+        //    // Example: $('#logDetailsContainer').append(`<div>${log.id}: ${log.message}</div>`);
+        //}
+
+        // Display the modal
+        $('#logDetailsModal').modal('show');
+    });
+
+    // Function to fetch log details based on log ID (Replace this with your actual data retrieval method)
+    function getLogDetails(logId) {
+        // Assuming you have an API endpoint to retrieve log details
+        // Perform an AJAX call or use any method to fetch log details from your server/API
+        // Replace this with your actual API endpoint
+        return $.ajax({
+            url: 'https://localhost:7188/api/Logger/GetLogDetails?LogId=' + logId,
+            method: 'GET',
+            // Additional options like headers, data, etc., if needed
+        })
+            .done(function (response, textStatus, jqXHR) {
+                debugger
+                console.log('Success - Received response:', response);
+                console.log('Status:', jqXHR.status);
+                for (let i = 0; i < response.length; i++) {
+                    const log = response[i];
+
+                    // Update the modal content with the fetched details for each log object
+                    $('#id').text(log.id);
+                    $('#message').text(log.message);
+                    $('#stackTrace').text(log.stackTrace);
+                    $('#exception').text(log.exception);
+
+                    // Find the index of "/api/" in the URL
+                    const apiUrlIndex = log.url.indexOf('/api/');
+                    if (apiUrlIndex !== -1) {
+                        log.url = log.url.substring(apiUrlIndex + 5); // Get the part of the URL after "/api/"
+                    }
+                    $('#url').text(log.url);
+
+                    // Add logic here to handle displaying multiple log details (e.g., appending to a container)
+                    // Example: $('#logDetailsContainer').append(`<div>${log.id}: ${log.message}</div>`);
+                }
+                return response;
+            })
+            .fail(function (error) {
+                alert('error');
+                console.error('Error fetching log details:', error);
+                // Handle errors appropriately, e.g., display an error message
+            });
+    }
     function bindDataTable() {
         dataTable = $("#logTable").DataTable({
             "processing": true,
@@ -108,7 +210,7 @@ $(document).ready(function () {
             bRetrieve: true,
             crossDomain: true,
             "ajax": {
-                "url": "https://projects.sustainedgeconsulting.com/VVPSMS/V0/VVPSMSAPI/api/Logger/LoadData",
+                "url": "https://localhost:7188/api/Logger/LoadData",
                 "type": "GET",
                 "datatype": "json",
                 //"data": { name: fromDate },
@@ -148,11 +250,23 @@ $(document).ready(function () {
             ],
             order: [[1, 'desc']],
             columnDefs: [
-                createEllipsisRenderConfig(0, 50),
+                //createEllipsisRenderConfig(0, 50),
+                {
+                    targets: 0,
+                    "data": "id",
+                    "name": "Id",
+                    "width": '5px',
+                    "class": 'text-wrap',
+                    "style": 'word-break: break-word;',
+                    "render": function (data, type, row) {
+                        // Render the "Id" column as a hyperlink
+                        return '<a href="#" class="log-details" data-id="' + row.id + '">' + data + '</a>';
+                    }
+                },
                 createDateTimeRenderConfig(1),
                 createShowMoreRenderConfig(3, 50), 
-                createShowMoreRenderConfig(4, 100), 
-                createShowMoreRenderConfig(5, 100), 
+                createShowMoreRenderConfig(4, 50), 
+                createShowMoreRenderConfig(5, 50), 
                 createEllipsisRenderConfig(6, 50),
                 {
                     targets: 7,
