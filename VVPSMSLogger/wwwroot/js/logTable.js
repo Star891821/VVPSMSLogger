@@ -166,7 +166,7 @@ $(document).ready(function () {
         // Perform an AJAX call or use any method to fetch log details from your server/API
         // Replace this with your actual API endpoint
         return $.ajax({
-            url: 'https://localhost:7188/api/Logger/GetLogDetails?LogId=' + logId,
+            url: 'https://projects.sustainedgeconsulting.com/VVPSMS/V0/VVPSMSAPI/api/Logger/GetLogDetails?LogId=' + logId,
             method: 'GET',
             // Additional options like headers, data, etc., if needed
         })
@@ -210,7 +210,7 @@ $(document).ready(function () {
             bRetrieve: true,
             crossDomain: true,
             "ajax": {
-                "url": "https://localhost:7188/api/Logger/LoadData",
+                "url": "https://projects.sustainedgeconsulting.com/VVPSMS/V0/VVPSMSAPI/api/Logger/LoadData",
                 "type": "GET",
                 "datatype": "json",
                 //"data": { name: fromDate },
